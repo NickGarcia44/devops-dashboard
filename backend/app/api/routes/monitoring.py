@@ -1,5 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
+from app.database.session import get_db
+from app.repositories.metrics import create_metric, get_metrics
 from app.services.monitoring import get_system_metrics
 
 
@@ -10,6 +13,22 @@ router = APIRouter(
 
 
 @router.get("/")
-def monitoring():
+def monitoring(
+    db: Session = Depends(get_db)
+):
+    metrics = get_system_metrics()
 
-    return get_system_metrics()
+    create_metric(
+        db,
+        metrics["cpu"]["percent"],
+        metrics["memory"]["percent"],
+        metrics["disk"]["percent"],
+    )
+
+    return metrics
+
+@router.get("/history")
+def history(
+    db: Session = Depends(get_db)
+):
+    return get_metrics(db)
