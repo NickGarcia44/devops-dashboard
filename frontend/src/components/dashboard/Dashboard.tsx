@@ -1,5 +1,13 @@
+import {
+  Activity,
+  Cpu,
+  HardDrive,
+  Server,
+} from "lucide-react";
+
 import Header from "../layout/Header";
 import Sidebar from "../layout/Sidebar";
+import MetricCard from "./MetricCard";
 
 export default function Dashboard() {
   return (
@@ -14,19 +22,35 @@ export default function Dashboard() {
             Dashboard
           </h2>
 
-          {/* Cards */}
           <section className="mb-8 grid grid-cols-4 gap-6">
-            <div className="h-32 rounded-xl bg-white shadow"></div>
-            <div className="h-32 rounded-xl bg-white shadow"></div>
-            <div className="h-32 rounded-xl bg-white shadow"></div>
-            <div className="h-32 rounded-xl bg-white shadow"></div>
+            <MetricCard
+              title="CPU"
+              value="23%"
+              icon={Cpu}
+            />
+
+            <MetricCard
+              title="Memória"
+              value="61%"
+              icon={Server}
+            />
+
+            <MetricCard
+              title="Disco"
+              value="42%"
+              icon={HardDrive}
+            />
+
+            <MetricCard
+              title="API"
+              value="Online"
+              icon={Activity}
+            />
           </section>
 
-          {/* Gráfico CPU */}
-          <section className="mb-8 h-80 rounded-xl bg-white shadow"></section>
+          <section className="mb-8 h-80 rounded-xl bg-white shadow" />
 
-          {/* Gráfico Memória */}
-          <section className="h-80 rounded-xl bg-white shadow"></section>
+          <section className="h-80 rounded-xl bg-white shadow" />
         </main>
       </div>
     </div>
